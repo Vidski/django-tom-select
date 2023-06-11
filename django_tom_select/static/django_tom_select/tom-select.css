@@ -326,7 +326,7 @@
   overflow: hidden;
 }
 .ts-dropdown [data-selectable] .highlight {
-  background: rgba(125, 168, 208, 0.2);
+  border-bottom: 2px solid #fbba00;
   border-radius: 1px;
 }
 .ts-dropdown .option,

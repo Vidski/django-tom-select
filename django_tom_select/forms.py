@@ -98,7 +98,7 @@ class TomSelectMixin:
     def optgroups(self, name, value, attrs=None):
         """Add empty option for clearable selects."""
         if not self.is_required and not self.allow_multiple_selected:
-            self.choices = list(chain([("", "")], self.choices))
+            self.choices = list(chain([(" ", "")], self.choices))
         return super().optgroups(name, value, attrs)
 
     @property
