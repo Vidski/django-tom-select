@@ -1,0 +1,36 @@
+{
+  "name": "django-tom-select",
+  "version": "0.0.0",
+  "description": "This is a Django integration of tom-select.",
+  "files": [
+    "django_tom_select/static/**/*"
+  ],
+  "main": "django_tom_select/static/django_tom_select/django_select2.js",
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "standard"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vidski/django-tom-select.git"
+  },
+  "keywords": [
+    "django",
+    "select2"
+  ],
+  "author": "David Rydwanski",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/vidski/django-tom-select/issues"
+  },
+  "homepage": "https://github.com/vidski/django-tom-select#readme",
+  "peerDependencies": {
+    "tom-select": "^2.2.2"
+  },
+  "devDependencies": {
+    "standard": "*"
+  }
+}
