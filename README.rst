@@ -2,16 +2,11 @@
 Django-Tom-Select
 ==============
 
-|version| |coverage| |license|
+|license|
 
 Custom autocomplete fields for `Django`_.
 
-Forked from https://github.com/codingjoe/django-select2 and rewritten for tom-select
-
-Documentation
--------------
-
-Documentation available at https://django-tom-select.readthedocs.io/.
+Inspired by https://github.com/codingjoe/django-select2 and rewritten for tom-select
 
 .. _Django: https://www.djangoproject.com/
 .. _tom-select: https://tom-select.js.org/
