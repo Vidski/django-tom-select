@@ -9,7 +9,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
 
     return {
-      allowEmptyOption: allowEmptyOption
+      allowEmptyOption: allowEmptyOption,
+      loadThrottle: 200,
     }
   }
 
@@ -21,6 +22,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     var defaultSettings = getDataOptions(element)
     var settings = {
       ...defaultSettings,
+      openOnFocus: false,
       load: function (query, callback) {
         let url = `${element.getAttribute('data-ajax--url')}?term=${encodeURIComponent(query)}&field_id=${element.getAttribute('data-field_id')}`
         fetch(url)
