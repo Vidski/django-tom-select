@@ -9,7 +9,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
 
     return {
+      plugins: ['remove_button'],
       loadThrottle: 200,
+      render: {
+        item: function (data, escape) {
+          return '<div class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">' + escape(data.text) + '</div>'
+        }
+      },
     }
   }
 
@@ -22,11 +28,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     var settings = {
       ...defaultSettings,
       openOnFocus: false,
-      render: {
-        item: function (data, escape) {
-          return '<div class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">' + escape(data.text) + '</div>'
-        }
-      },
       load: function (query, callback) {
         let url = `${element.getAttribute('data-ajax--url')}?term=${encodeURIComponent(query)}&field_id=${element.getAttribute('data-field_id')}`
         fetch(url)
