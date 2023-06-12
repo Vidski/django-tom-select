@@ -49,10 +49,8 @@ in their names.
 import operator
 import uuid
 from functools import reduce
-from itertools import chain
 from pickle import PicklingError  # nosec
 
-import django
 from django import forms
 from django.contrib.admin.utils import lookup_spawns_duplicates
 from django.core import signing
@@ -82,13 +80,11 @@ class TomSelectMixin:
         """Add tom-select data attributes."""
         default_attrs = {
             'data-create': 'false',
-            'data-allow-empty-option': 'true'
         }
-        if self.is_required:
-            default_attrs['data-allow-empty-option'] = 'false'
-
         default_attrs.update(base_attrs)
         attrs = super().build_attrs(default_attrs, extra_attrs)
+        if self.choices.field.label and not 'placeholder' in attrs:
+            attrs['placeholder'] = self.choices.field.label
         if "class" in attrs:
             attrs["class"] += " " + self.css_class_name
         else:
@@ -97,8 +93,8 @@ class TomSelectMixin:
 
     def optgroups(self, name, value, attrs=None):
         """Add empty option for clearable selects."""
-        if not self.is_required and not self.allow_multiple_selected:
-            self.choices = list(chain([(" ", "")], self.choices))
+        # if not self.is_required and not self.allow_multiple_selected:
+        #     self.choices = list(chain([(" ", "")], self.choices))
         return super().optgroups(name, value, attrs)
 
     @property
@@ -231,13 +227,10 @@ class HeavyTomSelectMixin:
     def build_attrs(self, base_attrs, extra_attrs=None):
         """Set tom-select's AJAX attributes."""
         default_attrs = {
-            'data-allow-empty-option': 'true',
             'data-ajax--url': self.get_url(),
             'data-ajax--cache': 'true',
             'data-ajax--type': 'GET',
         }
-        if self.is_required:
-            default_attrs['data-allow-empty-option'] = 'false'
 
         if self.dependent_fields:
             default_attrs["data-tom-select-dependent-fields"] = " ".join(
@@ -245,8 +238,9 @@ class HeavyTomSelectMixin:
             )
 
         default_attrs.update(base_attrs)
-
         attrs = super().build_attrs(default_attrs, extra_attrs=extra_attrs)
+        if self.choices.field.label and not 'placeholder' in attrs:
+            attrs['placeholder'] = self.choices.field.label
 
         attrs["data-field_id"] = self.field_id
         attrs["class"] += " django-tom-select-heavy"
@@ -467,7 +461,7 @@ class ModelTomSelectMixin:
             option_label = self.label_from_instance(obj)
 
             selected = str(option_value) in value and (
-                has_selected is False or self.allow_multiple_selected
+                    has_selected is False or self.allow_multiple_selected
             )
             if selected is True and has_selected is False:
                 has_selected = True
