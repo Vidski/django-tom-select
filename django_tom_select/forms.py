@@ -83,8 +83,6 @@ class TomSelectMixin:
         }
         default_attrs.update(base_attrs)
         attrs = super().build_attrs(default_attrs, extra_attrs)
-        if self.choices.field.label and not 'placeholder' in attrs:
-            attrs['placeholder'] = self.choices.field.label
         if "class" in attrs:
             attrs["class"] += " " + self.css_class_name
         else:
@@ -239,8 +237,6 @@ class HeavyTomSelectMixin:
 
         default_attrs.update(base_attrs)
         attrs = super().build_attrs(default_attrs, extra_attrs=extra_attrs)
-        if self.choices.field.label and not 'placeholder' in attrs:
-            attrs['placeholder'] = self.choices.field.label
 
         attrs["data-field_id"] = self.field_id
         attrs["class"] += " django-tom-select-heavy"
