@@ -8,8 +8,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
       allowEmptyOption = attribute === 'true'
     }
 
+    let plugins = []
+    if (element.multiple) {
+      plugins[0] = 'remove_button'
+    }
+
     return {
-      plugins: ['remove_button'],
+      plugins: plugins,
       loadThrottle: 200,
     }
   }
