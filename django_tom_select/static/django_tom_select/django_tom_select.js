@@ -10,10 +10,10 @@ DjangoTomSelect = {
     }
   },
   init: (element) => {
-    new TomSelect(element, this.getDataOptions(element))
+    new TomSelect(element, DjangoTomSelect.getDataOptions(element))
   },
   initHeavy: (element) => {
-    let defaultSettings = this.getDataOptions(element)
+    let defaultSettings = DjangoTomSelect.getDataOptions(element)
     let settings = {
       ...defaultSettings,
       openOnFocus: false,
@@ -33,7 +33,7 @@ DjangoTomSelect = {
   getDataOptions: (element) => {
     let plugins = []
     if (element.multiple)
-      plugins[0] = 'remove'
+      plugins[0] = 'remove_button'
 
     return {
       plugins: plugins,
