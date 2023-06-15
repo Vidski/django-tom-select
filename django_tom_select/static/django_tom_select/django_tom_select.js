@@ -1,31 +1,20 @@
-window.addEventListener('DOMContentLoaded', (event) => {
-
-  let getDataOptions = function (element) {
-    let attribute = element.getAttribute('data-allow-empty-option')
-    let allowEmptyOption = false
-
-    if (attribute !== null) {
-      allowEmptyOption = attribute === 'true'
+DjangoTomSelect = {
+  registerAll: () => {
+    let allElements = Array.from(document.getElementsByClassName('django-tom-select'))
+    for (element of allElements) {
+      if (element.classList.contains('django-tom-select-heavy')) {
+        DjangoTomSelect.initHeavy(element)
+      } else {
+        DjangoTomSelect.init(element)
+      }
     }
-
-    let plugins = []
-    if (element.multiple) {
-      plugins[0] = 'remove_button'
-    }
-
-    return {
-      plugins: plugins,
-      loadThrottle: 200,
-    }
-  }
-
-  let init = function (element) {
-    new TomSelect(element, getDataOptions(element))
-  }
-
-  var initHeavy = function (element) {
-    var defaultSettings = getDataOptions(element)
-    var settings = {
+  },
+  init: (element) => {
+    new TomSelect(element, this.getDataOptions(element))
+  },
+  initHeavy: (element) => {
+    let defaultSettings = this.getDataOptions(element)
+    let settings = {
       ...defaultSettings,
       openOnFocus: false,
       load: function (query, callback) {
@@ -40,14 +29,29 @@ window.addEventListener('DOMContentLoaded', (event) => {
       },
     }
     new TomSelect(element, settings)
-  }
+  },
+  getDataOptions: (element) => {
+    let plugins = []
+    if (element.multiple)
+      plugins[0] = 'remove'
 
-  var allElements = Array.from(document.getElementsByClassName('django-tom-select'))
-  for (element of allElements) {
-    if (element.classList.contains('django-tom-select-heavy')) {
-      initHeavy(element)
-    } else {
-      init(element)
+    return {
+      plugins: plugins,
+      loadThrottle: 200,
+      // onItemAdd reset input
+      onItemAdd: function () {
+        this.setTextboxValue('')
+      },
     }
+  }
+}
+
+window.addEventListener('DOMContentLoaded', (event) => {
+  DjangoTomSelect.registerAll()
+  // HTMX Support
+  if (typeof htmx === 'object') {
+    htmx.onLoad((elt) => {
+      DjangoTomSelect.registerAll()
+    })
   }
 })
