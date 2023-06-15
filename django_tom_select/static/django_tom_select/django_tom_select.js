@@ -50,7 +50,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
   DjangoTomSelect.registerAll()
   // HTMX Support
   if (typeof htmx === 'object') {
-    htmx.on('htmx:afterSwap', (elt) => {
+    htmx.on('htmx:afterSettle', (elt) => {
       DjangoTomSelect.registerAll()
     })
   }
