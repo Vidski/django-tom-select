@@ -1,15 +1,18 @@
 DjangoTomSelect = {
-  registerAll: () => {
-    const elements = Array.from(document.querySelectorAll('.django-tom-select'))
-    elements.forEach((element) =>
+  getTomSelects: (elt = null) => {
+    if (elt)
+      return Array.from(elt.target.querySelectorAll('select.django-tom-select'))
+    return Array.from(document.querySelectorAll('.django-tom-select'))
+  },
+  registerAll: (elt = null) => {
+    DjangoTomSelect.getTomSelects(elt).forEach((element) =>
       element.classList.contains('django-tom-select-heavy')
         ? DjangoTomSelect.initHeavy(element)
         : DjangoTomSelect.init(element)
     )
   },
-  unregisterAll: () => {
-    const elements = Array.from(document.querySelectorAll('.django-tom-select'))
-    elements.forEach((element) =>
+  unregisterAll: (elt = null) => {
+    DjangoTomSelect.getTomSelects(elt).forEach((element) =>
       element.tomselect = null
     )
   },
@@ -55,10 +58,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
   // HTMX Support
   if (typeof htmx === 'object') {
     htmx.on('htmx:beforeSwap', (elt) => {
-      DjangoTomSelect.unregisterAll()
+      DjangoTomSelect.unregisterAll(elt)
     })
     htmx.on('htmx:afterSwap', (elt) => {
-      DjangoTomSelect.registerAll()
+      DjangoTomSelect.registerAll(elt)
     })
   }
 })
