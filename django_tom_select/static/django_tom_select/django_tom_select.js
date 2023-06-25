@@ -60,7 +60,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     htmx.on('htmx:beforeSwap', (elt) => {
       DjangoTomSelect.unregisterAll(elt)
     })
-    htmx.on('htmx:afterSwap', (elt) => {
+    htmx.on('htmx:afterSettle', (elt) => {
       DjangoTomSelect.registerAll(elt)
     })
   }
